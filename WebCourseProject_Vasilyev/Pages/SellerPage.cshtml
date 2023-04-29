@@ -1,12 +1,14 @@
 ﻿@page
-@using WebCourseProject_Vasilyev.LogicServices;
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+@model WebCourseProject_Vasilyev.Pages.SellerPageModel
+<link rel="stylesheet" href="~/css/Items.css" / />
+
+<h1>Все товары @Model.seller.Name</h1>
+<h3>Рейтинг продавца @Model.seller.Rating</h3>
+@if(!String.IsNullOrEmpty(Model.seller.Description)){
+    <h5>Описание продавца: @Model.seller.Description</h5>
 }
-<link rel="stylesheet" href="~/css/Items.css" />
 <div class="text-center">
-    @foreach (var item in await @Model.GetItemsAsync())
+    @foreach (var item in await Model.GetItemsAsync())
     {
         <div class="product">
             <a asp-page="/ItemPage" asp-route-id="@item.Id">
@@ -22,20 +24,18 @@
                 </div>
             </a>
             <div class="product-name">@item.Name</div>
-            @if (item.InStock)
-            {
-                <div style="color: green">
+            @if(item.InStock){
+                <div class="product-instock" style="color: green">
                     В наличии
                 </div>
             }
             else
             {
-                    <div style="color: darkred">
-                        Нет в наличии
-                    </div>
+                <div class="product-instock" style="color: darkred">
+                    Нет в наличии
+                </div>
             }
             <div class="product-price">@item.Price ₽</div>
-            <div class="product-seller">Продавец: <a asp-page="/SellerPage" asp-route-id="@item.Seller.Id">@item.Seller.Name</a></div>
             <button class="btn btn-success">В корзину</button>
         </div>
 

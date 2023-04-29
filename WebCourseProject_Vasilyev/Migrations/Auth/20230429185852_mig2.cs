@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebCourseProject_Vasilyev.Migrations
+namespace WebCourseProject_Vasilyev.Migrations.Auth
 {
     /// <inheritdoc />
     public partial class mig2 : Migration

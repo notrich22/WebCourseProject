@@ -1,0 +1,38 @@
+﻿@page
+@model WebCourseProject_Vasilyev.Pages.ItemPageModel
+@{
+	ViewData["Title"] = "Home page";
+}
+<h1>@Model.item.Name</h1>
+
+<link rel="stylesheet" href="~/css/itemdetails.css" />
+
+<div class="product-details">
+    <div class="product-pic">
+        @if (String.IsNullOrEmpty(@Model.item.PhotoPath))
+        {
+            <img class="product-image" src="~/ItemImages/no_photo.webp">
+        }
+        else
+        {
+            <img class="product-image" src="@Model.item.PhotoPath">
+            Console.WriteLine(@Model.item.PhotoPath);
+        }
+    </div>
+    <div class="product-info">
+        @if (Model.item.InStock)
+        {
+            <div style="color: green">
+                В наличии
+            </div>
+        }
+        else
+        {
+            <div style="color: darkred">
+                Нет в наличии
+            </div>
+        }
+        <div class="product-price">@Model.item.Price ₽</div>
+        <div class="product-description">@Model.item.Description</div>
+    </div>
+</div>
