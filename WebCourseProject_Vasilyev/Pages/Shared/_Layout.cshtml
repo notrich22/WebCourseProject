@@ -28,14 +28,30 @@
                                 <button class ="btn btn-success" type="submit">Search</button>
                             </form>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Товары</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Конфиденциальность</a>
-                        </li>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Товары</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Конфиденциальность</a>
+                            </li>
+                        }else{
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/ItemsCRUD/Index">Items</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/SellersCRUD/Index">Sellers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/BuyersCRUD/Index">Buyers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/OrdersCRUD/Index">Orders</a>
+                            </li>
+                        }
                     </ul>
+                    <a asp-page="/ShoppingCart">Корзина</a>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

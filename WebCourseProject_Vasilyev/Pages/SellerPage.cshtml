@@ -1,5 +1,7 @@
 ﻿@page
 @model WebCourseProject_Vasilyev.Pages.SellerPageModel
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
 <link rel="stylesheet" href="~/css/Items.css" / />
 
 <h1>Все товары @Model.seller.Name</h1>

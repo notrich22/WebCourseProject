@@ -1,0 +1,30 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+@model WebCourseProject_Vasilyev.Pages.ShoppingCartModel
+@{
+}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Корзина покупок</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Итого</th>
+          </tr>
+        </thead>
+        <tbody>
+                    
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <h2>Общая стоимость</h2>
+      <a class="btn btn-primary" href="#">Оформить заказ</a>
+    </div>
+  </div>
+</div>

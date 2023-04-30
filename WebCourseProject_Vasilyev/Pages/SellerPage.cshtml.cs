@@ -18,7 +18,8 @@ namespace WebCourseProject_Vasilyev.Pages
         }
         public async Task<IActionResult> OnGet(int id)
         {
-            this.items = await itemsLogicService.GetItemsBySellerAsync(id); //TODO
+            this.items = await itemsLogicService.GetItemsBySellerAsync(id); 
+            //TODO
             seller = items[0].Seller;
             return Page();
         }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebCourseProject_Vasilyev.Model;
@@ -11,9 +12,11 @@ using WebCourseProject_Vasilyev.Model;
 namespace WebCourseProject_Vasilyev.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230430085814_shoppingcartaddedd")]
+    partial class shoppingcartaddedd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +105,7 @@ namespace WebCourseProject_Vasilyev.Migrations
                     b.Property<int>("SellerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ShoppingCartId")
+                    b.Property<int?>("ShoppingCartId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -227,17 +230,13 @@ namespace WebCourseProject_Vasilyev.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.ShoppingCart", "ShoppingCart")
+                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.ShoppingCart", null)
                         .WithMany("CartItems")
-                        .HasForeignKey("ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShoppingCartId");
 
                     b.Navigation("Buyer");
 
                     b.Navigation("Seller");
-
-                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.OrderComponent", b =>

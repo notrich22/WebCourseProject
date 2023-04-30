@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebCourseProject_Vasilyev.Model;
@@ -11,9 +12,11 @@ using WebCourseProject_Vasilyev.Model;
 namespace WebCourseProject_Vasilyev.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230430075834_shoppingcartadded")]
+    partial class shoppingcartadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +47,8 @@ namespace WebCourseProject_Vasilyev.Migrations
                     b.Property<long>("OrdersCount")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserID")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -81,9 +83,14 @@ namespace WebCourseProject_Vasilyev.Migrations
                     b.Property<int>("SellerId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ShoppingCartId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SellerId");
+
+                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("Items");
                 });
@@ -99,10 +106,11 @@ namespace WebCourseProject_Vasilyev.Migrations
                     b.Property<int>("BuyerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SellerId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("ShoppingCartId")
+                    b.Property<int>("SellerId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -111,35 +119,7 @@ namespace WebCourseProject_Vasilyev.Migrations
 
                     b.HasIndex("SellerId");
 
-                    b.HasIndex("ShoppingCartId");
-
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.OrderComponent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("itemId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("itemId");
-
-                    b.ToTable("OrderComponent");
                 });
 
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.Seller", b =>
@@ -210,6 +190,10 @@ namespace WebCourseProject_Vasilyev.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.ShoppingCart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("ShoppingCartId");
+
                     b.Navigation("Seller");
                 });
 
@@ -227,32 +211,9 @@ namespace WebCourseProject_Vasilyev.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.ShoppingCart", "ShoppingCart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Buyer");
 
                     b.Navigation("Seller");
-
-                    b.Navigation("ShoppingCart");
-                });
-
-            modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.OrderComponent", b =>
-                {
-                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.Order", null)
-                        .WithMany("Components")
-                        .HasForeignKey("OrderId");
-
-                    b.HasOne("WebCourseProject_Vasilyev.Model.Entity.Item", "item")
-                        .WithMany()
-                        .HasForeignKey("itemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("item");
                 });
 
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.ShoppingCart", b =>
@@ -269,11 +230,6 @@ namespace WebCourseProject_Vasilyev.Migrations
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.Buyer", b =>
                 {
                     b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.Order", b =>
-                {
-                    b.Navigation("Components");
                 });
 
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.Seller", b =>
