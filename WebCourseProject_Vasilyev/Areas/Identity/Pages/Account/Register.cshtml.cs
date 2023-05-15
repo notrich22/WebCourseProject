@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebCourseProject_Vasilyev.Areas.Identity.Data;
+using WebCourseProject_Vasilyev.Model;
+using WebCourseProject_Vasilyev.Model.Entity;
 
 namespace WebCourseProject_Vasilyev.Areas.Identity.Pages.Account
 {
@@ -30,7 +32,6 @@ namespace WebCourseProject_Vasilyev.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
@@ -53,6 +54,8 @@ namespace WebCourseProject_Vasilyev.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
+        [BindProperty]
+        public bool RegisterAsSeller { get; set; }
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -98,6 +101,7 @@ namespace WebCourseProject_Vasilyev.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
         }
 
 
@@ -121,6 +125,27 @@ namespace WebCourseProject_Vasilyev.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (RegisterAsSeller)
+                    {
+                        await _userManager.AddToRoleAsync(user, "seller");
+
+                    }
+                    else{
+                        await _userManager.AddToRoleAsync(user, "buyer");
+
+                    }
+                    using (var _context = new DBContext())
+                    {
+                        Buyer newBuyer = new Buyer();
+                        newBuyer.Purchases = null;
+                        newBuyer.OrdersCount = 0;
+                        newBuyer.FirstName = "";
+                        newBuyer.LastName = "";
+                        newBuyer.Contacts = null;
+                        newBuyer.UserID = await _userManager.GetUserIdAsync(user);
+                        await _context.Buyers.AddAsync(newBuyer);
+                        await _context.SaveChangesAsync();
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

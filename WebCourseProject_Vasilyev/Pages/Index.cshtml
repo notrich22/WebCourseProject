@@ -7,6 +7,14 @@
     ViewData["Title"] = "Home page";
 }
 <link rel="stylesheet" href="~/css/Items.css" />
+<style>
+    .product-seller a {
+        color: green;
+        text-decoration: none;
+        font-weight: bolder;
+    }
+
+</style>
 <div class="text-center">
     @foreach (var item in await @Model.GetItemsAsync())
     {
@@ -15,7 +23,6 @@
                 <div class="product-image">
                     @if(String.IsNullOrEmpty(item.PhotoPath)){
                         <img src="~/ItemImages/no_photo.webp">
-
                     }
                     else
                     {
@@ -29,16 +36,20 @@
                 <div style="color: green">
                     В наличии
                 </div>
+                <div class="product-price">@item.Price ₽</div>
+                <div class="product-seller">Продавец: <a asp-page="/SellerPage" asp-route-id="@item.Seller.Id">@item.Seller.Name</a></div>
+                <button class="btn btn-success">В корзину</button>
             }
             else
             {
                     <div style="color: darkred">
                         Нет в наличии
                     </div>
+                    <div class="product-price">@item.Price ₽</div>
+                    <div class="product-seller">Продавец: <a asp-page="/SellerPage" asp-route-id="@item.Seller.Id">@item.Seller.Name</a></div>
+                    <button class="btn btn-danger">Уведомить о поступлении</button>
             }
-            <div class="product-price">@item.Price ₽</div>
-            <div class="product-seller">Продавец: <a asp-page="/SellerPage" asp-route-id="@item.Seller.Id">@item.Seller.Name</a></div>
-            <button class="btn btn-success">В корзину</button>
+            
         </div>
 
     }

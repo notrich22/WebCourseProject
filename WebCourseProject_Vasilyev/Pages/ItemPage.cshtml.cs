@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using WebCourseProject_Vasilyev.Areas.Identity.Data;
 using WebCourseProject_Vasilyev.LogicServices;
+using WebCourseProject_Vasilyev.Model;
 using WebCourseProject_Vasilyev.Model.Entity;
 
 namespace WebCourseProject_Vasilyev.Pages

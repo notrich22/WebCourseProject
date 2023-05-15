@@ -26,19 +26,23 @@
                 </div>
             </a>
             <div class="product-name">@item.Name</div>
-            @if(item.InStock){
-                <div class="product-instock" style="color: green">
+            @if (item.InStock)
+            {
+                <div style="color: green">
                     В наличии
                 </div>
+                <div class="product-price">@item.Price ₽</div>
+                <button class="btn btn-success">В корзину</button>
             }
             else
             {
-                <div class="product-instock" style="color: darkred">
-                    Нет в наличии
-                </div>
+                    <div style="color: darkred">
+                        Нет в наличии
+                    </div>
+                    <div class="product-price">@item.Price ₽</div>
+                    <button class="btn btn-danger">Уведомить о поступлении</button>
+
             }
-            <div class="product-price">@item.Price ₽</div>
-            <button class="btn btn-success">В корзину</button>
         </div>
 
     }

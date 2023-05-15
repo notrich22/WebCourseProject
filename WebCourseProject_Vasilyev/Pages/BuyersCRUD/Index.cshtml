@@ -1,6 +1,7 @@
 ﻿@page
 @model WebCourseProject_Vasilyev.Pages.BuyersCRUD.IndexModel
-
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
 @{
     ViewData["Title"] = "Index";
 }

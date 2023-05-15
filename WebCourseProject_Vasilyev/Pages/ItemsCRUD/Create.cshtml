@@ -33,11 +33,6 @@
                 <input asp-for="Item.Price" class="form-control" />
                 <span asp-validation-for="Item.Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Item.Seller.Id" class="control-label"></label>
-                <input asp-for="Item.Seller.Id" class="form-control" />
-                <span asp-validation-for="Item.Seller.Id" class="text-danger"></span>
-            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Item.InStock" /> @Html.DisplayNameFor(model => model.Item.InStock)

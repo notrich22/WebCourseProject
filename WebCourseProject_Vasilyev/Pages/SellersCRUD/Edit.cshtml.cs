@@ -43,6 +43,7 @@ namespace WebCourseProject_Vasilyev.Pages.SellersCRUD
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             _context.Attach(Seller).State = EntityState.Modified;
 
             try

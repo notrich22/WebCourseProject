@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebCourseProject_Vasilyev.Model;
 using WebCourseProject_Vasilyev.Model.Entity;
 
-namespace WebCourseProject_Vasilyev.Pages.ItemsCRUD
+namespace WebCourseProject_Vasilyev.Pages.OrdersCRUD
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +25,18 @@ namespace WebCourseProject_Vasilyev.Pages.ItemsCRUD
         }
 
         [BindProperty]
-        public Item Item { get; set; } = default!;
+        public Order Order { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Items == null || Item == null)
+          if (!ModelState.IsValid || _context.Orders == null || Order == null)
             {
                 return Page();
             }
 
-            _context.Items.Add(Item);
+            _context.Orders.Add(Order);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

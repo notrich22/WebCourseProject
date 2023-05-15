@@ -24,7 +24,7 @@ namespace WebCourseProject_Vasilyev.Pages
             // у которых в имени содержится строка поиска
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                items = items.Where(i => i.Name.Contains(searchTerm)).ToList();
+                items = items.Where(i => i.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             // Возвращаем список товаров на страницу Index

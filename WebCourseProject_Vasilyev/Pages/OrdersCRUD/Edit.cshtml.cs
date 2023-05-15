@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using WebCourseProject_Vasilyev.Model;
 using WebCourseProject_Vasilyev.Model.Entity;
 
-namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
+namespace WebCourseProject_Vasilyev.Pages.OrdersCRUD
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
         }
 
         [BindProperty]
-        public Buyer Buyer { get; set; } = default!;
+        public Order Order { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Buyers == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var buyer =  await _context.Buyers.FirstOrDefaultAsync(m => m.Id == id);
-            if (buyer == null)
+            var order =  await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
+            if (order == null)
             {
                 return NotFound();
             }
-            Buyer = buyer;
+            Order = order;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
                 return Page();
             }
 
-            _context.Attach(Buyer).State = EntityState.Modified;
+            _context.Attach(Order).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BuyerExists(Buyer.Id))
+                if (!OrderExists(Order.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
             return RedirectToPage("./Index");
         }
 
-        private bool BuyerExists(int id)
+        private bool OrderExists(int id)
         {
-          return (_context.Buyers?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

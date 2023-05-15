@@ -27,12 +27,16 @@
             <div style="color: green">
                 В наличии
             </div>
+            <button class="btn btn-success">В корзину</button>
+
         }
         else
         {
             <div style="color: darkred">
                 Нет в наличии
             </div>
+            <button class="btn btn-danger">Уведомить о поступлении</button>
+
         }
         <div class="product-price">@Model.item.Price ₽</div>
         <div class="product-description">@Model.item.Description</div>

@@ -31,7 +31,7 @@ namespace WebCourseProject_Vasilyev.Pages.BuyersCRUD
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (_context.Buyers == null || Buyer == null)
+          if (!ModelState.IsValid || _context.Buyers == null || Buyer == null)
             {
                 return Page();
             }
