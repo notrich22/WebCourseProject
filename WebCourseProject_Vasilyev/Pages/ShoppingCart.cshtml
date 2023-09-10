@@ -6,6 +6,12 @@
 }
 <div class="container">
   <div class="row">
+        @if (TempData.ContainsKey("SuccessMessage"))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
     <div class="col-md-8">
       <h2>Корзина покупок</h2>
       <table class="table table-striped">
@@ -18,13 +24,29 @@
           </tr>
         </thead>
         <tbody>
-                    
-        </tbody>
+                    @if (Model.shoppingCart != null)
+                    {
+                        @foreach (var shoppingCartComponent in Model.shoppingCart.CartItems)
+                        {
+                            <tr>
+                                <td>@shoppingCartComponent.item.Name</td>
+                                <td>@shoppingCartComponent.item.Price ₽</td>
+                                <td>
+                                    <input type="number" value="@shoppingCartComponent.Quantity"/>
+                                </td>
+                                <td>@(
+                                            shoppingCartComponent.item.Price * shoppingCartComponent.Quantity
+                                            ) ₽</td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
       </table>
     </div>
-    <div class="col-md-4">
-      <h2>Общая стоимость</h2>
-      <a class="btn btn-primary" href="#">Оформить заказ</a>
-    </div>
+    <form class="col-md-4" method="post">
+        <h2>@Model.TotalCostsText</h2>
+        <button class="btn btn-primary" asp-action="BuyButtonClick">Оформить заказ</button>
+    </form>
   </div>
 </div>

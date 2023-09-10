@@ -1,6 +1,6 @@
 ﻿namespace WebCourseProject_Vasilyev.Model.Entity
 {
-    public class OrderComponent
+    public class ShoppingCartComponent
     {
         public int Id { get; set; }
         public Item item { get; set; }

@@ -38,7 +38,11 @@
                 </div>
                 <div class="product-price">@item.Price ₽</div>
                 <div class="product-seller">Продавец: <a asp-page="/SellerPage" asp-route-id="@item.Seller.Id">@item.Seller.Name</a></div>
-                <button class="btn btn-success">В корзину</button>
+                <form method="post" asp-page-handler="AddToCart" asp-asp-page-handler="AddToCart">
+                    <input type="hidden" name="itemId" value="@item.Id">
+                    <button type="submit" class="btn btn-success">В корзину</button>
+                </form>
+                
             }
             else
             {

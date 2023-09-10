@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebCourseProject_Vasilyev.Model;
@@ -11,9 +12,11 @@ using WebCourseProject_Vasilyev.Model;
 namespace WebCourseProject_Vasilyev.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230515190208_shoppingcartAndOrderUpdated")]
+    partial class shoppingcartAndOrderUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,7 +203,7 @@ namespace WebCourseProject_Vasilyev.Migrations
 
                     b.HasIndex("itemId");
 
-                    b.ToTable("ShoppingCartComponents");
+                    b.ToTable("ShoppingCartComponent");
                 });
 
             modelBuilder.Entity("WebCourseProject_Vasilyev.Model.Entity.Item", b =>
